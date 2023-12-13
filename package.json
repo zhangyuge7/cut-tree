@@ -1,0 +1,30 @@
+{
+  "name": "cut-tree",
+  "version": "0.0.6",
+  "author": "zhangyuze",
+  "license": "MIT",
+  "description": "Tree structure data tool",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhangyuge7/cut-tree.git"
+  },
+  "bugs": {
+    "url": "https://github.com/zhangyuge7/cut-tree/issues"
+  },
+  "keywords": [
+    "tree util",
+    "tree tool"
+  ],
+  "type": "module",
+  "main": "dist/cut-tree.js",
+  "module": "dist/cut-tree.js",
+  "files": [
+    "dist/*"
+  ],
+  "scripts": {
+    "build": "vite build"
+  },
+  "devDependencies": {
+    "vite": "^4.5.1"
+  }
+}
