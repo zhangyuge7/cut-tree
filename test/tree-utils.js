@@ -109,5 +109,19 @@ sort(treesData,config,(a,b)=>{
 })
 console.assert(JSON.stringify(treesData)==='[{"label":"123","id":123},{"label":"4","id":4,"pid":null,"children":[{"label":"4-2","id":14,"pid":4}]},{"label":"3","id":3,"pid":null,"children":[{"label":"3-1","id":5,"pid":3,"children":[{"label":"3-1-1","id":13,"pid":5},{"label":"3-1-2","id":12,"pid":5}]}]},{"label":"2","id":2,"pid":null,"children":[{"label":"2-3","id":16},{"label":"2-2","id":15,"pid":2,"children":[]},{"label":"4-1","id":8,"pid":2,"children":[{"label":"4-1-1","id":7,"pid":8}]},{"label":"2-1","id":6,"pid":2}]},{"label":"1","id":1,"pid":null,"children":[{"label":"1-2","id":9,"pid":1,"children":[{"label":"1-2-1","id":11,"pid":9,"children":[{"label":"12-13-11","id":17,"pid":11}]}]}]}]','sort 测试不通过');
 
+// forEach 倒序遍历测试
+let arr1 = []
+forEach(treesData, config, (item, i, l) => {
+    arr1.push(`${item.label} ${i} ${l}`)
+},{rever:true})
+console.assert(JSON.stringify(arr1) === '["123 0 1","4-2 1 2","4 2 1","3-1-1 3 3","3-1-2 4 3","3-1 5 2","3 6 1","2-3 7 2","2-2 8 2","4-1-1 9 3","4-1 10 2","2-1 11 2","2 12 1","12-13-11 13 4","1-2-1 14 3","1-2 15 2","1 16 1"]','forEach 倒序遍历测试');
+
+// foreach 倒序遍历测试
+arr1 = []
+foreach(treesData, config, (item, i, l, parent, root) => {
+    arr1.push(`${item.label} ${i} ${l} ${parent ? parent.label : null} ${root.label}`)
+},{rever:true})
+console.assert(JSON.stringify(arr1)==='["123 0 1 null 123","4-2 1 2 4 4","4 2 1 null 4","3-1-1 3 3 3-1 3","3-1-2 4 3 3-1 3","3-1 5 2 3 3","3 6 1 null 3","2-3 7 2 2 2","2-2 8 2 2 2","4-1-1 9 3 4-1 2","4-1 10 2 2 2","2-1 11 2 2 2","2 12 1 null 2","12-13-11 13 4 1-2-1 1","1-2-1 14 3 1-2 1","1-2 15 2 1 1","1 16 1 null 1"]','foreach 倒序遍历测试未通过');
+
 
 console.log('测试耗时:', `${new Date().getTime() - start} 毫秒`);

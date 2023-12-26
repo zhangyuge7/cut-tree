@@ -58,18 +58,20 @@ export function listToTree(list, config = { id: 'id', parentId: 'parentId', chil
  * @param {Object[]} trees 树结构数据列表
  * @param {Object} config 配置 示例：{children: 'children'}
  * @param {Function} callback 回调函数 回调参数 (node 节点对象, index 节点索引, lv 层级)
+ * @param {Object} setting 扩展设置。setting.rever: Boolean（从叶子节点开始遍历）
  */
-export function forEach(trees, config, callback) {
+export function forEach(trees, config, callback,setting) {
     const { children } = config
     let i = 0, l = 1
     function _forEach(_trees) {
         _trees.forEach(item => {
-            callback(item, i++, l)
+            !setting?.rever && callback(item, i++, l)
             if (item[children]?.length) {
                 l++
                 _forEach(item[children])
                 l--
             }
+            setting?.rever && callback(item, i++, l)
         })
     }
     _forEach(trees)
@@ -80,14 +82,16 @@ export function forEach(trees, config, callback) {
  * @param {Object[]} trees 树结构数据列表
  * @param {Object} config 配置 示例：{children: 'children'}
  * @param {Function} callback 回调函数 回调参数 (node 节点对象, index 节点索引, lv 层级, parent 父级节点, root 根节点)
+ * @param {Object} setting 扩展设置。setting.rever: Boolean（true->从叶子节点开始遍历）
  */
-export function foreach(trees, config, callback) {
+export function foreach(trees, config, callback,setting) {
     const { children } = config
     let breakFlag, i = 0, l = 1
 
     function _foreach(node, parent, root) {
         if (breakFlag === 0) return
-        breakFlag = callback(node, i++, l, parent, root)
+        if(!setting?.rever)
+            breakFlag = callback(node, i++, l, parent, root)
         if (node[children]?.length) {
             l++
             for (let index = 0; index < node[children].length; index++) {
@@ -95,6 +99,8 @@ export function foreach(trees, config, callback) {
             }
             l--
         }
+        if(setting?.rever)
+            breakFlag = callback(node, i++, l, parent, root)
     }
 
     for (let index = 0; index < trees.length; index++) {

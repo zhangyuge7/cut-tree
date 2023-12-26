@@ -87,7 +87,7 @@ treeToList(trees: Array,config: Object): Array
 
 ## 遍历所有节点
 
-forEach(trees: Array,config: Object,callback: Function): void
+forEach(trees: Array,config: Object,callback: Function,setting?: Object): void
 
 参数：
 
@@ -96,6 +96,8 @@ forEach(trees: Array,config: Object,callback: Function): void
     config  映射配置。示例 {children: 'children'}。
     
     callback    回调函数。回调参数 (node 节点对象, index 节点索引, lv 层级)。
+
+    setting 扩展设置。setting.rever: Boolean（true->从叶子节点开始遍历）
 
 返回值：
 
@@ -112,6 +114,8 @@ foreach(trees: Array,config: Object,callback: Function): void
     config 配置 示例：{children: 'children'}
     
     callback 回调函数 回调参数 (node 节点对象, index 节点索引, lv 层级, parent 父级节点, root 根节点)
+
+    setting 扩展设置。setting.rever: Boolean（true->从叶子节点开始遍历）
 
 返回值：
 
@@ -339,3 +343,8 @@ sort(treestrees: Array,config: Object,callback: Function): void
 
     如果非必要，建议列表转树前排序。
 
+# 版本说明
+
+## 0.1.0：
+
+    遍历函数 (forEach, foreach) 新增扩展设置参数，支持从叶子节点开始遍历

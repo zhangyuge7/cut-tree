@@ -59,17 +59,19 @@ export function useTreeUtil(config = { id: 'id', parentId: 'parentId', children:
      * 遍历所有节点
      * @param {Object[]} trees 树结构数据列表
      * @param {Function} callback 回调函数 回调参数 (node 节点对象, index 节点索引, lv 层级)
+     * @param {Object} setting 扩展设置。setting.rever: Boolean（从叶子节点开始遍历）
      */
-    function forEach(trees, callback) {
+    function forEach(trees, callback,setting) {
         let i = 0, l = 1
         function _forEach(_trees) {
             _trees.forEach(item => {
-                callback(item, i++, l)
+                !setting?.rever && callback(item, i++, l)
                 if (item[childrenField]?.length) {
                     l++
                     _forEach(item[childrenField])
                     l--
                 }
+                setting?.rever && callback(item, i++, l)
             })
         }
         _forEach(trees)
@@ -80,12 +82,14 @@ export function useTreeUtil(config = { id: 'id', parentId: 'parentId', children:
      * 功能更强的遍历。return 0 可中断遍历
      * @param {Object[]} trees 树结构数据列表
      * @param {Function} callback 回调函数 回调参数 (node 节点对象, index 节点索引, lv 层级, parent 父级节点, root 根节点)
+     * @param {Object} setting 扩展设置。setting.rever: Boolean（true->从叶子节点开始遍历）
      */
-    function foreach(trees, callback) {
+    function foreach(trees, callback,setting) {
         let breakFlag, i = 0, l = 1
         function _foreach(node, parent, root) {
             if (breakFlag === 0) return
-            breakFlag = callback(node, i++, l, parent, root)
+            if(!setting?.rever)
+                breakFlag = callback(node, i++, l, parent, root)
             if (node[childrenField]?.length) {
                 l++
                 for (let index = 0; index < node[childrenField].length; index++) {
@@ -93,6 +97,8 @@ export function useTreeUtil(config = { id: 'id', parentId: 'parentId', children:
                 }
                 l--
             }
+            if(setting?.rever)
+                breakFlag = callback(node, i++, l, parent, root)
         }
 
         for (let index = 0; index < trees.length; index++) {
