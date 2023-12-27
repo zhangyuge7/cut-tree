@@ -380,3 +380,21 @@ export function sort(trees,config,callback){
     _sort(trees)
     trees.sort(callback)
 }
+
+/**
+ * 获取祖籍
+ * @param {*[]} trees 树结构数据列表
+ * @param {*} config 配置 示例：{id:'id', children: 'children'}
+ * @returns {Object} {id: [root, ..., parent2, parent1, node]}
+ */
+export function getAncestors(trees,config){
+    const result = {}
+    foreach(trees,config,(route,i,l,parent)=>{
+        if(parent){
+            result[route[config.id]] = [...result[parent[config.id]],route]
+        }else{
+            result[route[config.id]] = [route]
+        }
+    })
+    return result
+}

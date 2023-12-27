@@ -61,7 +61,7 @@ export function useTreeUtil(config = { id: 'id', parentId: 'parentId', children:
      * @param {Function} callback 回调函数 回调参数 (node 节点对象, index 节点索引, lv 层级)
      * @param {Object} setting 扩展设置。setting.rever: Boolean（从叶子节点开始遍历）
      */
-    function forEach(trees, callback,setting) {
+    function forEach(trees, callback, setting) {
         let i = 0, l = 1
         function _forEach(_trees) {
             _trees.forEach(item => {
@@ -84,11 +84,11 @@ export function useTreeUtil(config = { id: 'id', parentId: 'parentId', children:
      * @param {Function} callback 回调函数 回调参数 (node 节点对象, index 节点索引, lv 层级, parent 父级节点, root 根节点)
      * @param {Object} setting 扩展设置。setting.rever: Boolean（true->从叶子节点开始遍历）
      */
-    function foreach(trees, callback,setting) {
+    function foreach(trees, callback, setting) {
         let breakFlag, i = 0, l = 1
         function _foreach(node, parent, root) {
             if (breakFlag === 0) return
-            if(!setting?.rever)
+            if (!setting?.rever)
                 breakFlag = callback(node, i++, l, parent, root)
             if (node[childrenField]?.length) {
                 l++
@@ -97,7 +97,7 @@ export function useTreeUtil(config = { id: 'id', parentId: 'parentId', children:
                 }
                 l--
             }
-            if(setting?.rever)
+            if (setting?.rever)
                 breakFlag = callback(node, i++, l, parent, root)
         }
 
@@ -363,6 +363,23 @@ export function useTreeUtil(config = { id: 'id', parentId: 'parentId', children:
         trees.sort(callback)
     }
 
+    /**
+     * 获取祖籍
+     * @param {*[]} trees 树结构数据列表
+     * @returns {Object} {id: [root, ..., parent2, parent1, node]}
+     */
+    function getAncestors(trees) {
+        const result = {}
+        foreach(trees, (route, i, l, parent) => {
+            if (parent) {
+                result[route[idField]] = [...result[parent[idField]], route]
+            } else {
+                result[route[idField]] = [route]
+            }
+        })
+        return result
+    }
+
     return {
         listToTree,
         forEach,
@@ -379,7 +396,8 @@ export function useTreeUtil(config = { id: 'id', parentId: 'parentId', children:
         updateNode,
         removeNode,
         saveNode,
-        sort
+        sort,
+        getAncestors
     }
 
 }
