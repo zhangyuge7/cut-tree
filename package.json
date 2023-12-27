@@ -1,6 +1,6 @@
 {
   "name": "cut-tree",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": "zhangyuze",
   "license": "MIT",
   "description": "Tree structure data tool",
@@ -12,6 +12,9 @@
     "url": "https://github.com/zhangyuge7/cut-tree/issues"
   },
   "keywords": [
+    "cut tree",
+    "js处理树结构工具库",
+    "js tree",
     "tree util",
     "tree tool"
   ],

@@ -364,9 +364,9 @@ export function useTreeUtil(config = { id: 'id', parentId: 'parentId', children:
     }
 
     /**
-     * 获取祖籍
+     * 获取全部节点祖籍
      * @param {*[]} trees 树结构数据列表
-     * @returns {Object} {id: [root, ..., parent2, parent1, node]}
+     * @returns [{id: [root, ..., parent2, parent1, node]}]
      */
     function getAncestors(trees) {
         const result = {}

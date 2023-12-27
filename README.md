@@ -220,6 +220,19 @@ getAncestorsById(trees: Array, config: Object, idValue: any): Array
 
     节点列表
 
+## 获取全部节点祖籍
+getAncestors(trees: Array,config: Object): Object
+
+参数：
+
+    trees 树结构数据列表
+    
+    config 配置 示例：{id: 'id', children: 'children'} 
+
+返回值：
+
+    [{id: [root, ..., parent2, parent1, node]}, ...]
+
 
 ## 查找所有叶子节点
 
@@ -325,7 +338,7 @@ removeNode(trees: Array,config: Object,targetNodeId: any): void
 
 
 ## 排序
-sort(treestrees: Array,config: Object,callback: Function): void
+sort(trees: Array,config: Object,callback: Function): void
 
 参数：
 
@@ -343,7 +356,12 @@ sort(treestrees: Array,config: Object,callback: Function): void
 
     如果非必要，建议列表转树前排序。
 
+
 # 版本说明
+
+## 0.2.0
+    
+    新增获取所有节点祖籍函数
 
 ## 0.1.0：
 

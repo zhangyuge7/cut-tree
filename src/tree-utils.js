@@ -382,10 +382,10 @@ export function sort(trees,config,callback){
 }
 
 /**
- * 获取祖籍
+ * 获取全部节点祖籍
  * @param {*[]} trees 树结构数据列表
  * @param {*} config 配置 示例：{id:'id', children: 'children'}
- * @returns {Object} {id: [root, ..., parent2, parent1, node]}
+ * @returns {Object} [{id: [root, ..., parent2, parent1, node]}]
  */
 export function getAncestors(trees,config){
     const result = {}
