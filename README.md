@@ -359,13 +359,7 @@ sort(trees: Array,config: Object,callback: Function): void
 
 # 版本说明
 
-## 0.2.1
-    getAncestors不存在问题修复
-
-## 0.2.0
-    
+## 1.0.0：
     新增获取所有节点祖籍函数
-
-## 0.1.0：
-
     遍历函数 (forEach, foreach) 新增扩展设置参数，支持从叶子节点开始遍历
+    getAncestors不存在问题修复
