@@ -15,7 +15,9 @@ import {
     updateNode,
     removeNode,
     saveNode,
-    sort
+    sort,
+    getAncestors
+    
 } from './tree-utils.js';
 
 export default useTreeUtil
@@ -35,5 +37,6 @@ export {
     updateNode,
     removeNode,
     saveNode,
-    sort
+    sort,
+    getAncestors
 }

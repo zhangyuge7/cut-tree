@@ -359,6 +359,9 @@ sort(trees: Array,config: Object,callback: Function): void
 
 # 版本说明
 
+## 0.2.1
+    getAncestors不存在问题修复
+
 ## 0.2.0
     
     新增获取所有节点祖籍函数
